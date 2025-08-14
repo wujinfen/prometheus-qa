@@ -1,5 +1,5 @@
 using JsonPlaceholderService.Models;
-using System.text;
+using System.Text;
 using System.Text.Json;
 
 namespace JsonPlaceholderService
@@ -38,7 +38,7 @@ namespace JsonPlaceholderService
           * Delete - delete post by id
           */
 
-        public async Task<List<Post>> GetPost()
+        public async Task<List<Post>> GetPosts()
         {
             var response = await _httpClient.GetAsync("posts");
             response.EnsureSuccessStatusCode(); 
@@ -59,7 +59,7 @@ namespace JsonPlaceholderService
         {
             //convert post to JSON and send it in request body
             var json = JsonSerializer.Serialize(post, _jsonOptions);
-#           //create body and set header fields
+            //create body and set header fields
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             //send post request to API
