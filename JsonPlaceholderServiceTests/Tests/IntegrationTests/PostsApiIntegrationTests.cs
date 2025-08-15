@@ -56,10 +56,10 @@ namespace JsonPlaceholderService.IntegrationTests
             Assert.That(postIds, Is.Unique);
 
             //Assert that all posts have required fields
-            Assert.That(response.All(p => p.Id > 0), Is.True, "All posts should have IDs");
-            Assert.That(response.All(p => p.UserId > 0), Is.True, "All posts should have UserIds");
-            Assert.That(response.All(p => !string.IsNullOrEmpty(p.Title)), Is.True, "All posts should have titles");
-            Assert.That(response.All(p => !string.IsNullOrEmpty(p.Body)), Is.True, "All posts should have bodies");
+            Assert.That(response.All(p => p.Id > 0), Is.True, "all posts should have IDs");
+            Assert.That(response.All(p => p.UserId > 0), Is.True, "all posts should have UserIds");
+            Assert.That(response.All(p => !string.IsNullOrEmpty(p.Title)), Is.True, "all posts should have titles");
+            Assert.That(response.All(p => !string.IsNullOrEmpty(p.Body)), Is.True, "all posts should have bodies");
         }
 
         [Test]
