@@ -6,13 +6,13 @@ using System.Linq;
 //see reference.txt for NUnit reference sheet
 //PLACEHOLDER API: https://jsonplaceholder.typicode.com/
 //NUnit Reference: https://www.automatetheplanet.com/nunit-cheat-sheet/
-
 /*
  * Arrange
  * Act
  * Assert
  * Assert.That is (actual, expected)
  */
+
 namespace JsonPlaceholderService.IntegrationTests
 {
     [TestFixture]
