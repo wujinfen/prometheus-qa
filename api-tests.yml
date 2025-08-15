@@ -21,7 +21,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-          cache-dependency-path: '**/packages.lock.json'
+          cache-dependency-path: |
+            qa/service/packages.lock.json
+            qa/servicetests/packages.lock.json
           
      
       - name: Restore
