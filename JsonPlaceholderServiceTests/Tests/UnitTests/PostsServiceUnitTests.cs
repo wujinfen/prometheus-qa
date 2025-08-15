@@ -58,7 +58,6 @@ namespace JsonPlaceholderService.UnitTests
                 .ReturnsResponse(System.Net.HttpStatusCode.OK, mockJsonResponse, "application/json");
 
             var response = await _service.GetPosts();
-            var postIds = new List<int>();
            
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Count, Is.EqualTo(3)); //expects 3 posts
