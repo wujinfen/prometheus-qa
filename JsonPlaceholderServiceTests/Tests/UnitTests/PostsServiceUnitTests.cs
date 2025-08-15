@@ -17,7 +17,7 @@ using System.Threading.Tasks; //makes it easier to mock HttpClient responses
  * see: https://stackoverflow.com/questions/36425008/mocking-httpclient-in-unit-tests
  */
 
-namespace JsonPlaceholderServiceTests
+namespace JsonPlaceholderService.UnitTests
 {
     [TestFixture]
     public class JsonPlaceholderServiceUnitTests
