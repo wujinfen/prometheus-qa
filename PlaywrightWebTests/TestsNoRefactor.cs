@@ -66,6 +66,8 @@ namespace PlaywrightWebTests
             //escapes error message if it appears
             await _page.Keyboard.PressAsync("Escape");
 
+            await CloseModalPopupAsync();
+
             //check that the logo is visible
             var logo = _page.Locator("img[src='https://www.prometheusgroup.com/hubfs/prometheus-group-srw/prometheus-group.svg']");
             await Expect(logo).ToBeVisibleAsync();
@@ -94,6 +96,8 @@ namespace PlaywrightWebTests
 
             //escapes error message if it appears
             await _page.Keyboard.PressAsync("Escape");
+
+            await CloseModalPopupAsync();
 
             //click Contact button
             await _page.Locator("#hs-cta-182765558177-0").ClickAsync(); 
@@ -145,7 +149,8 @@ namespace PlaywrightWebTests
 
             //escapes error message if it appears
             await _page.Keyboard.PressAsync("Escape");
-            await _page.Keyboard.PressAsync("Escape");
+
+            await CloseModalPopupAsync();
 
             //hover over Company section in navbar and click About Us link
             await _page.Locator("span.parent-link.has-dropdown:has-text('Company')").HoverAsync();
@@ -154,6 +159,17 @@ namespace PlaywrightWebTests
             //validate that URL is correct and the header is visible
             await Expect(_page).ToHaveURLAsync(new Regex("https://www.prometheusgroup.com/company/about"));
             await Expect(_page.Locator("h2:has-text('The Global Leader in EAM')")).ToBeVisibleAsync();
+        }
+
+        public async Task CloseModalPopupAsync()
+        {
+            var overlay = _page.Locator("#hs-interactives-modal-overlay");
+            var closeTop = _page.Locator("#interactive-close-button, #interactive-close-button-container");
+
+            if (await closeTop.CountAsync() > 0 && await closeTop.IsVisibleAsync())
+                await closeTop.ClickAsync(new() { Force = true });
+
+            await _page.Keyboard.PressAsync("Escape");
         }
     }
 }
