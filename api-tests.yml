@@ -1,0 +1,45 @@
+name: API Service CI/CD
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+  workflow_dispatch: {}
+
+
+jobs:
+  test:
+    name: Run API Service Tests
+    runs-on: ubuntu-latest #github-hosted linux vm
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+          cache-dependency-path: |
+            prometheyus-qa/JsonPlaceholderService/packages.lock.json
+            qa/servicetests/packages.lock.json
+          
+     
+      - name: Restore
+        run: dotnet restore prometheus-qa.sln
+      
+      - name: Build
+        run: dotnet build prometheus-qa.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test prometheus-qa.sln --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test_results.trx"
+
+      - name: Upload test results
+        if: always()  
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            **/TestResults/*.trx
+            **/TestResults/**/*.xml
