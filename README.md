@@ -56,6 +56,8 @@ In `PlaywrightWebTests/`
 
 -Finally, I made sure that these tests also ran automatically in the .yml workflow in GitHub Actions.
 
+-I also opened a sample bug report under the GitHub Issues tab.
+
 ****
 
 Screenshots of errors during Playwright testing:
