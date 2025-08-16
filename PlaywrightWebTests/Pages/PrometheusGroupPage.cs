@@ -26,6 +26,7 @@ namespace PlaywrightWebTests.Pages
         private ILocator CompanyNavbar;
         private ILocator AboutUsLink;
 
+        
 
         public PrometheusGroupPage(IPage page)
         {
@@ -77,8 +78,19 @@ namespace PlaywrightWebTests.Pages
                 await closeTop.ClickAsync(new() { Force = true });
 
             await _page.Keyboard.PressAsync("Escape");
+
+            // Try closing from inside the HubSpot iframe
+            var popupFrame = _page.FrameLocator(
+                "iframe[role='dialog'][title='Popup CTA'], " +
+                "iframe[data-test-id='interactive-frame'], " +
+                "iframe[src*='hs-web-interactive']"
+            );
+            var closeInFrame = popupFrame.Locator("#interactive-close-button, [aria-label='Close'], button:has-text('Close')");
+            if (await closeInFrame.CountAsync() > 0 && await closeInFrame.IsVisibleAsync())
+                await closeInFrame.ClickAsync(new() { Force = true });
         }
 
+      
         public async Task CheckPgLogoAsync()
         {
             await Expect(PgLogo).ToBeVisibleAsync();
