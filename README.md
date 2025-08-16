@@ -46,12 +46,24 @@ Note: Because the Google part of the assignment isn't completable, I added some 
 Note: The Prometheus Group website has a lot of random popup modals. This sometimes results in race conditions that will cause the test to fail. To handle these, I increased time between (Slowmo) instructions to catch them more frequently.
 
 In `PlaywrightWebTests/`
- -I made a Playwright C# Test Suite `TestsNoRefactor.cs` that has the following tests:
+ -I made a Playwright C# Test Suite `TestsNoRefactor.cs` that has the following tests (that should all pass):
+ 
   1. Goes to the Prometheus Group website and checks if the Logo is visible.
   2. Goes to the Prometheus Group website, then goes to the contact page, fills in the first name and last name, submits the form, and validates that the there are 4 "Required Fields" errors.
   3. Goes to the Prometheus Group website, goes to the About Us page in the navbar, and validates that the URL is in the about page, and validates that the heading is visible.
+
 -Then, I refactored the tests to fit the POM design pattern. `./Pages/PrometheusGroupPage.cs` holds the Prometheus Group Page Object and `./Tests/PrometheusGroupPageTests.cs` holds the abstracted test suite.
+
 -Finally, I made sure that these tests also ran automatically in the .yml workflow in GitHub Actions.
+
+****
+
+Screenshots of errors during Playwright testing:
+1. Google and DDG blocks automated search 
+![DDG Blocked](ddg-after-search.png)
+
+2. Error modal opens randomly during tests
+![DDG Blocked](openpg.png)
 
 
   
