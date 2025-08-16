@@ -7,7 +7,11 @@ using NUnit.Framework;
 
 /*
  * Playwright .NET Reference: https://playwright.dev/dotnet/docs/library
+ * to take ss: await Page.ScreenshotAsync(new() { Path = "ss.png" });
  * 
+ * This test suite does E2E UI testing for the Prometheus Group website using Playwright C# .NET NUnit
+ * This test file is not refactored to use Page Object Model (POM) pattern
+ * These tests have been refactored into the POM pattern under Pages/PrometheusGroupPage.cs and Tests/PrometheusGroupPageTests.cs
  */
 namespace PlaywrightWebTests
 {
@@ -36,7 +40,6 @@ namespace PlaywrightWebTests
         [TearDown]
         public async Task TearDown()
         {
-            
             if (_page != null) { await _page.CloseAsync(); } //close tab
             if (_context != null) { await _context.CloseAsync(); } //clear session
             if (_browser != null) { await _browser.CloseAsync(); } //close browser
@@ -142,10 +145,15 @@ namespace PlaywrightWebTests
 
             //escapes error message if it appears
             await _page.Keyboard.PressAsync("Escape");
+            await _page.Keyboard.PressAsync("Escape");
 
             //hover over Company section in navbar and click About Us link
             await _page.Locator("span.parent-link.has-dropdown:has-text('Company')").HoverAsync();
             await _page.Locator("text='About Us'").First.ClickAsync();
+
+            //validate that URL is correct and the header is visible
+            await Expect(_page).ToHaveURLAsync(new Regex("https://www.prometheusgroup.com/company/about"));
+            await Expect(_page.Locator("h2:has-text('The Global Leader in EAM')")).ToBeVisibleAsync();
         }
     }
 }
