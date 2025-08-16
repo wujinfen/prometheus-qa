@@ -26,8 +26,8 @@ namespace PlaywrightWebTests
             _playwright = await Microsoft.Playwright.Playwright.CreateAsync();
             _browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
-                Headless = false,
-                SlowMo = 100
+                //Headless = false,
+                //SlowMo = 100
             });
             _context = await _browser.NewContextAsync();
             _page = await _context.NewPageAsync();
